@@ -8,9 +8,9 @@ function addRow() {
     let cell4 = row.insertCell(3);
     let cell5 = row.insertCell(4);
 
-    cell1.innerHTML = `<input type="text" placeholder="Subject">`;
-    cell2.innerHTML = `<input type="number" placeholder="Credit" min="1">`;
-    cell3.innerHTML = `<input type="number" placeholder="Marks" min="0" max="100">`;
+    cell1.innerHTML = "<input type='text' placeholder='Subject'>";
+    cell2.innerHTML = "<input type='number' placeholder='Credit'>";
+    cell3.innerHTML = "<input type='number' placeholder='Marks'>";
     cell4.innerHTML = "-";
     cell5.innerHTML = "-";
 }
@@ -37,7 +37,10 @@ function calculateGPA() {
 
         if (isNaN(credit) || isNaN(marks)) continue;
 
-        let [grade, gpa] = getGradeAndGPA(marks);
+        let gradeData = getGradeAndGPA(marks);
+        let grade = gradeData[0];
+        let gpa = gradeData[1];
+
         rows[i].cells[3].innerText = grade;
         rows[i].cells[4].innerText = gpa;
 
@@ -45,7 +48,10 @@ function calculateGPA() {
         totalCredits += credit;
     }
 
-    let finalGPA = (totalPoints / totalCredits).toFixed(2);
-    document.getElementById("result").innerText = 
-        `Your Semester GPA: ${isNaN(finalGPA) ? "N/A" : finalGPA}`;
+    let finalGPA = totalPoints / totalCredits;
+    if (isNaN(finalGPA)) {
+        document.getElementById("result").innerText = "Your Semester GPA: N/A";
+    } else {
+        document.getElementById("result").innerText = "Your Semester GPA: " + finalGPA.toFixed(2);
+    }
 }
