@@ -1,40 +1,49 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>GPA Calculator</title>
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="script.js">
 </head>
 <body>
 
   <header>
-    <h1>GPA Calculator</h1>
+    <div class="header-left">
+      <img src="https://imsciences.edu.pk/wp-content/uploads/2024/10/logo-1-final.png" class="main-logo" alt="IMS Logo">
+    </div>
+    <div class="header-center">
+      <h1>GPA Calculator</h1>
+    </div>
   </header>
 
   <main>
-    <h2>Enter Subject Details</h2>
+    <section class="calculator">
+      <h2>Enter Subject Details</h2>
+      
+      <table id="courseTable">
+        <tr>
+          <th>Subject Name</th>
+          <th>Credit Hours</th>
+          <th>Marks (%)</th>
+          <th>Grade</th>
+          <th>GPA</th>
+        </tr>
+      </table>
 
-    <table id="courseTable" border="1">
-      <tr>
-        <th>Subject Name</th>
-        <th>Credit Hours</th>
-        <th>Marks (%)</th>
-        <th>Grade</th>
-        <th>GPA</th>
-      </tr>
-    </table>
+      <div class="buttons">
+        <button onclick="addRow()">Add Course</button>
+        <button onclick="calculateGPA()">Calculate GPA</button>
+      </div>
 
-    <button onclick="addRow()">Add Course</button>
-    <button onclick="calculateGPA()">Calculate GPA</button>
-
-    <p id="result"></p>
+      <div id="result"></div>
+    </section>
   </main>
 
   <footer>
-    <p>© 2025 GPA Calculator | Made by 
-      <a href="https://www.linkedin.com/in/abubakar-sadiq-9abc7def6" target="_blank">
-        Abu Bakar Sadiq
-      </a>
+    <p>© 2025 GPA Calculator | Designed & Developed by 
+      <a href="https://www.linkedin.com/in/abubakar-sadiq-9abc7def6" target="_blank">Abu Bakar Sadiq</a>
     </p>
   </footer>
 
