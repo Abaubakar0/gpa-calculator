@@ -10,6 +10,7 @@ body {
   color: #333;
 }
 
+/* ===== HEADER ===== */
 header {
   display: flex;
   justify-content: space-between;
@@ -18,13 +19,18 @@ header {
   color: white;
   padding: 12px 30px;
   border-bottom: 4px solid #3498db;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 }
 
 .header-left img {
   width: 70px;
   background: white;
-  border-radius: 8px;
-  padding: 5px;
+  border-radius: 12px;
+  padding: 6px;
+  transition: transform 0.3s ease;
+}
+.header-left img:hover {
+  transform: scale(1.08);
 }
 
 .header-center {
@@ -33,10 +39,12 @@ header {
 }
 
 .header-center h1 {
-  font-size: 24px;
+  font-size: 26px;
   font-weight: bold;
+  letter-spacing: 1px;
 }
 
+/* ===== MAIN ===== */
 main {
   display: flex;
   justify-content: center;
@@ -46,10 +54,10 @@ main {
 .calculator {
   background: #fff;
   padding: 25px;
-  border-radius: 12px;
-  box-shadow: 0px 6px 12px rgba(0,0,0,0.1);
+  border-radius: 14px;
+  box-shadow: 0px 6px 15px rgba(0,0,0,0.1);
   width: 100%;
-  max-width: 800px;
+  max-width: 850px;
   text-align: center;
   overflow-x: auto;
 }
@@ -59,6 +67,7 @@ main {
   color: #2a5298;
 }
 
+/* ===== TABLE ===== */
 table {
   width: 100%;
   border-collapse: collapse;
@@ -76,6 +85,21 @@ table th {
   color: white;
 }
 
+table input {
+  width: 95%;
+  padding: 6px;
+  border: 1px solid #ccc;
+  border-radius: 8px; /* Rounded input boxes */
+  text-align: center;
+  outline: none;
+  transition: border 0.3s ease;
+}
+
+table input:focus {
+  border-color: #2a5298;
+}
+
+/* ===== BUTTONS ===== */
 .buttons {
   display: flex;
   justify-content: center;
@@ -83,45 +107,57 @@ table th {
 }
 
 button {
-  padding: 10px 15px;
+  padding: 10px 18px;
   border: none;
-  border-radius: 6px;
+  border-radius: 8px;
   background: #2a5298;
   color: white;
   font-size: 16px;
   cursor: pointer;
+  transition: transform 0.2s, background 0.3s ease;
 }
 
 button:hover {
   background: #1e3c72;
+  transform: scale(1.05);
 }
 
+/* ===== RESULT ===== */
 #result {
   margin-top: 20px;
   padding: 15px;
   background: #eef4ff;
-  border-left: 5px solid #2a5298;
-  border-radius: 6px;
+  border-left: 6px solid #2a5298;
+  border-radius: 8px;
   text-align: left;
-  font-size: 15px;
+  font-size: 16px;
+  font-weight: bold;
 }
 
+/* ===== FOOTER ===== */
 footer {
-  background: #1e3c72;
+  background: linear-gradient(90deg, #1e3c72, #2a5298);
   color: white;
   text-align: center;
   padding: 20px 10px;
   margin-top: 40px;
   font-size: 14px;
   border-top: 3px solid #3498db;
+  box-shadow: 0 -3px 8px rgba(0,0,0,0.2);
+}
+
+footer p {
+  margin: 5px 0;
 }
 
 footer a {
   color: #4cd137;
   font-weight: bold;
   text-decoration: none;
+  transition: color 0.3s ease, transform 0.2s ease;
 }
 
 footer a:hover {
-  text-decoration: underline;
+  color: #f1c40f;
+  transform: scale(1.05);
 }
