@@ -16,7 +16,7 @@ body {
 /* ===== HEADER ===== */
 header {
   display: flex;
-  justify-content: space-between;
+  justify-content: center; /* Center only (no left/right parts now) */
   align-items: center;
   background: linear-gradient(90deg, #1e3c72, #2a5298);
   color: white;
@@ -25,21 +25,6 @@ header {
   border-bottom: 4px solid #3498db;
 }
 
-.header-left img {
-  width: 70px;
-  background: white;
-  border-radius: 8px;
-  padding: 5px;
-  transition: transform 0.3s ease;
-}
-.header-left img:hover {
-  transform: scale(1.05);
-}
-
-.header-center {
-  flex: 1;
-  text-align: center;
-}
 .header-center h1 {
   font-size: 26px;
   margin: 0;
@@ -47,16 +32,11 @@ header {
   letter-spacing: 1px;
 }
 
-
-
 @media (max-width: 700px) {
   header {
     flex-direction: column;
     text-align: center;
     padding: 15px;
-  }
-  .header-left, .header-right {
-    margin: 5px 0;
   }
   .header-center h1 {
     font-size: 22px;
@@ -145,24 +125,15 @@ footer {
   font-size: 14px;
   border-top: 3px solid #3498db;
 }
-footer p {
-  margin: 5px 0;
-}
-.header-right a {
-  color: #f1f1f1;
+
+footer a {
+  color: #4cd137;
   text-decoration: none;
   font-weight: 600;
-  display: flex;
-  align-items: center;
-  gap: 6px;
   transition: color 0.3s ease, transform 0.2s ease;
 }
 
-.header-right a:hover {
-  color: #4cd137;
+footer a:hover {
+  color: #00ff99;
   transform: scale(1.05);
-}
-
-.linkedin-icon {
-  fill: #0A66C2; /* Official LinkedIn Blue */
 }
