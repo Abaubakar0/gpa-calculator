@@ -9,7 +9,7 @@ function addRow() {
     let cell5 = row.insertCell(4);
 
     cell1.innerHTML = `<input type="text" placeholder="Subject">`;
-    cell2.innerHTML = `<input type="number" placeholder="Credit" min="1">`;
+    cell2.innerHTML = `<input type="number" placeholder="Credit" min="1" max="3">`;
     cell3.innerHTML = `<input type="number" placeholder="Marks" min="0" max="100">`;
     cell4.innerHTML = "-";
     cell5.innerHTML = "-";
@@ -30,12 +30,32 @@ function calculateGPA() {
     let rows = table.rows;
     let totalPoints = 0;
     let totalCredits = 0;
+    let hasError = false;
 
     for (let i = 1; i < rows.length; i++) {
-        let credit = parseFloat(rows[i].cells[1].children[0].value);
-        let marks = parseFloat(rows[i].cells[2].children[0].value);
+        let creditInput = rows[i].cells[1].children[0];
+        let marksInput = rows[i].cells[2].children[0];
 
-        if (isNaN(credit) || isNaN(marks)) continue;
+        let credit = parseFloat(creditInput.value);
+        let marks = parseFloat(marksInput.value);
+
+        
+        if (isNaN(credit) || credit < 1 || credit > 3) {
+            creditInput.style.border = "2px solid red";
+            hasError = true;
+            continue;
+        } else {
+            creditInput.style.border = "";
+        }
+
+        
+        if (isNaN(marks) || marks < 0 || marks > 100) {
+            marksInput.style.border = "2px solid red";
+            hasError = true;
+            continue;
+        } else {
+            marksInput.style.border = "";
+        }
 
         let [grade, gpa] = getGradeAndGPA(marks);
         rows[i].cells[3].innerText = grade;
@@ -45,7 +65,13 @@ function calculateGPA() {
         totalCredits += credit;
     }
 
+    if (hasError) {
+        document.getElementById("result").innerText = 
+            "❌ Please correct the highlighted fields!";
+        return;
+    }
+
     let finalGPA = (totalPoints / totalCredits).toFixed(2);
     document.getElementById("result").innerText =
-        `Your Semester GPA: ${isNaN(finalGPA) ? "N/A" : finalGPA}`;
+        ` Your Semester GPA: ${isNaN(finalGPA) ? "N/A" : finalGPA}`;
 }
