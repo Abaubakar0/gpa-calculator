@@ -3,46 +3,73 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>GPA Calculator</title>
+  <title>IMS GPA Calculator</title>
   <link rel="stylesheet" href="style.css">
-  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
   <header>
-    <div class="header-left">
-      <img src="https://imsciences.edu.pk/wp-content/uploads/2024/10/logo-1-final.png" class="main-logo" alt="IMS Logo">
-    </div>
-    <div class="header-center">
-      <h1>GPA Calculator</h1>
+    <img src="https://imsciences.edu.pk/wp-content/uploads/2024/10/logo-1-final.png" alt="IMS Logo" class="logo">
+    <div class="header-titles">
+      <h1>IMS GPA Calculator</h1>
+      <p>Institute of Management Sciences</p>
     </div>
   </header>
 
   <main>
-    <section class="calculator">
-      <h2>Enter Subject Details</h2>
-      
-      <table id="courseTable">
-        <tr>
-          <th>Subject Name</th>
-          <th>Credit Hours</th>
-          <th>Marks (%)</th>
-          <th>Grade</th>
-          <th>GPA</th>
-        </tr>
-      </table>
+    <div class="app-wrap">
 
-      <div class="buttons">
-        <button onclick="addRow()">Add Course</button>
-        <button onclick="calculateGPA()">Calculate GPA</button>
+      <!-- Tabs -->
+      <div class="tabs">
+        <button class="tab-btn active" onclick="switchTab('gpa')">Semester GPA</button>
+        <button class="tab-btn" onclick="switchTab('cgpa')">CGPA Overview</button>
       </div>
 
-      <div id="result"></div>
-    </section>
+      <!-- GPA Tab -->
+      <div id="tab-gpa" class="tab-content active">
+        <div class="semester-header">
+          <h2>My Semesters</h2>
+          <button class="btn-primary" onclick="addSemester()">+ Add Semester</button>
+        </div>
+        <div id="semesters-container"></div>
+      </div>
+
+      <!-- CGPA Tab -->
+      <div id="tab-cgpa" class="tab-content">
+        <div class="cgpa-panel">
+          <div class="cgpa-grid">
+            <div class="metric-card highlight">
+              <div class="m-lbl">CGPA</div>
+              <div class="m-val" id="cgpa-val">—</div>
+            </div>
+            <div class="metric-card">
+              <div class="m-lbl">Total Credits</div>
+              <div class="m-val" id="total-credits-val">0</div>
+            </div>
+            <div class="metric-card">
+              <div class="m-lbl">Semesters</div>
+              <div class="m-val" id="sem-count-val">0</div>
+            </div>
+            <div class="metric-card">
+              <div class="m-lbl">Overall Grade</div>
+              <div class="m-val" id="overall-grade-val">—</div>
+            </div>
+          </div>
+          <div class="section-title">Semester Breakdown</div>
+          <div id="cgpa-breakdown">
+            <div class="empty-state">No semester GPA calculated yet. Go to the Semester GPA tab and calculate each semester.</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
   </main>
 
   <footer>
-    <p>© 2025 GPA Calculator | Designed & Developed by 
+    <p>© 2025 IMS GPA Calculator &nbsp;|&nbsp; Designed &amp; Developed by
       <a href="https://www.linkedin.com/in/abubakar-sadiq-9abc7def6" target="_blank">Abu Bakar Sadiq</a>
     </p>
   </footer>
