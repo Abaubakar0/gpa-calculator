@@ -1,5 +1,6 @@
 /* =========================================
    IMS GPA CALCULATOR — style.css
+   Responsive: Mobile · Tablet · Desktop
    ========================================= */
 
 /* ----- Reset & Base ----- */
@@ -34,6 +35,10 @@
   --font-display:'Space Grotesk', sans-serif;
 }
 
+html {
+  overflow-x: hidden;
+}
+
 body {
   font-family: var(--font-body);
   background: var(--gray-50);
@@ -41,26 +46,30 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  overflow-x: hidden;
 }
 
-/* ----- Header ----- */
+/* =============================================
+   HEADER
+   ============================================= */
 header {
   background: linear-gradient(135deg, #1e3c72 0%, #2563eb 100%);
-  padding: 1.1rem 2rem;
+  padding: 0.9rem clamp(1rem, 4vw, 2rem);
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 0.75rem;
   border-bottom: 3px solid #3b82f6;
   box-shadow: 0 4px 16px rgba(0,0,0,0.18);
+  min-width: 0;
 }
 
 header .logo {
-  width: 54px;
-  height: 54px;
+  width: clamp(36px, 7vw, 54px);
+  height: clamp(36px, 7vw, 54px);
   object-fit: contain;
   background: #fff;
   border-radius: 12px;
-  padding: 6px;
+  padding: 5px;
   flex-shrink: 0;
   transition: transform 0.25s ease;
 }
@@ -69,53 +78,71 @@ header .logo:hover {
   transform: scale(1.07);
 }
 
+.header-titles {
+  min-width: 0; /* allow text to shrink */
+}
+
 .header-titles h1 {
   font-family: var(--font-display);
-  font-size: 22px;
+  font-size: clamp(14px, 4.5vw, 22px);
   font-weight: 700;
   color: #fff;
   letter-spacing: -0.3px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .header-titles p {
-  font-size: 13px;
+  font-size: clamp(10px, 2.8vw, 13px);
   color: rgba(255,255,255,0.65);
   margin-top: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-/* ----- Main / Layout ----- */
+/* =============================================
+   MAIN / LAYOUT
+   ============================================= */
 main {
   flex: 1;
-  padding: 2rem 1rem;
+  padding: clamp(1rem, 3vw, 2rem) clamp(0.6rem, 3vw, 1rem);
+  min-width: 0;
 }
 
 .app-wrap {
   max-width: 900px;
+  width: 100%;
   margin: 0 auto;
+  min-width: 0;
 }
 
-/* ----- Tabs ----- */
+/* =============================================
+   TABS
+   ============================================= */
 .tabs {
   display: flex;
   gap: 6px;
   background: var(--gray-100);
   border-radius: var(--radius);
   padding: 4px;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.25rem;
 }
 
 .tab-btn {
   flex: 1;
-  padding: 9px 14px;
+  padding: 8px 12px;
   border: none;
   border-radius: 8px;
   font-family: var(--font-body);
-  font-size: 14px;
+  font-size: clamp(12px, 3vw, 14px);
   font-weight: 500;
   cursor: pointer;
   background: transparent;
   color: var(--gray-600);
   transition: all 0.18s ease;
+  white-space: nowrap;
 }
 
 .tab-btn.active {
@@ -138,22 +165,28 @@ main {
   to   { opacity: 1; transform: translateY(0); }
 }
 
-/* ----- Semester header row ----- */
+/* =============================================
+   SEMESTER HEADER ROW
+   ============================================= */
 .semester-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 0.5rem;
   margin-bottom: 1rem;
+  flex-wrap: wrap;
 }
 
 .semester-header h2 {
   font-family: var(--font-display);
-  font-size: 17px;
+  font-size: clamp(14px, 3.5vw, 17px);
   font-weight: 600;
   color: var(--gray-800);
 }
 
-/* ----- Cards ----- */
+/* =============================================
+   CARDS
+   ============================================= */
 .card {
   background: #fff;
   border-radius: var(--radius-lg);
@@ -162,27 +195,32 @@ main {
   margin-bottom: 1rem;
   overflow: hidden;
   transition: opacity 0.2s ease, transform 0.2s ease;
+  min-width: 0;
 }
 
 .card-head {
-  padding: 0.85rem 1.25rem;
+  padding: 0.7rem 0.9rem;
   border-bottom: 1px solid var(--gray-100);
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 0.5rem;
   background: var(--gray-50);
+  flex-wrap: wrap;
 }
 
 .sem-name-input {
   font-family: var(--font-display);
   font-weight: 600;
-  font-size: 15px;
+  font-size: clamp(13px, 3vw, 15px);
   color: var(--blue);
   border: 1px solid transparent;
   background: transparent;
   border-radius: 6px;
   padding: 3px 8px;
-  max-width: 200px;
+  flex: 1;
+  min-width: 0;
+  max-width: 220px;
   transition: border-color 0.15s;
   outline: none;
 }
@@ -193,14 +231,23 @@ main {
 }
 
 .card-body {
-  padding: 1rem 1.25rem;
+  padding: clamp(0.65rem, 2vw, 1rem) clamp(0.65rem, 2vw, 1.25rem);
 }
 
-/* ----- Course Table Grid ----- */
+/* =============================================
+   COURSE TABLE — DESKTOP (> 520px)
+   Fluid columns using minmax
+   ============================================= */
 .course-row {
   display: grid;
-  grid-template-columns: 2.2fr 80px 90px 80px 70px 36px;
-  gap: 8px;
+  grid-template-columns:
+    minmax(100px, 2.2fr)  /* Subject */
+    minmax(52px,  76px)   /* Credits */
+    minmax(60px,  88px)   /* Marks   */
+    minmax(52px,  76px)   /* Grade   */
+    minmax(44px,  66px)   /* GP      */
+    28px;                 /* Delete  */
+  gap: clamp(4px, 1vw, 8px);
   align-items: center;
   margin-bottom: 8px;
 }
@@ -210,38 +257,54 @@ main {
 }
 
 .col-label {
-  font-size: 11px;
+  font-size: clamp(9px, 1.8vw, 11px);
   font-weight: 600;
   color: var(--gray-400);
   text-transform: uppercase;
-  letter-spacing: 0.6px;
-  padding: 0 4px;
+  letter-spacing: 0.5px;
+  padding: 0 2px;
   text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .col-label:first-child {
   text-align: left;
 }
 
-/* ----- Inputs ----- */
+/* =============================================
+   INPUTS (global)
+   ============================================= */
 input[type="text"],
 input[type="number"] {
   width: 100%;
-  height: 36px;
+  height: 34px;
   border: 1px solid var(--gray-200);
   border-radius: 8px;
-  padding: 0 10px;
-  font-size: 13px;
+  padding: 0 clamp(4px, 1.5vw, 10px);
+  font-size: clamp(11px, 2.5vw, 13px);
   font-family: var(--font-body);
   color: var(--gray-800);
   background: #fff;
   outline: none;
   transition: border-color 0.15s, box-shadow 0.15s;
   text-align: center;
+  min-width: 0;
 }
 
 input[type="text"] {
   text-align: left;
+}
+
+/* Remove number spinners — saves space on mobile */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type="number"] {
+  -moz-appearance: textfield;
 }
 
 input:focus {
@@ -254,15 +317,18 @@ input.error {
   background: var(--red-light);
 }
 
-/* ----- Grade Badge ----- */
+/* =============================================
+   GRADE BADGE
+   ============================================= */
 .badge {
   display: inline-block;
-  padding: 3px 8px;
+  padding: 3px 6px;
   border-radius: 6px;
-  font-size: 12px;
+  font-size: clamp(10px, 1.8vw, 12px);
   font-weight: 700;
   text-align: center;
-  min-width: 42px;
+  min-width: 34px;
+  white-space: nowrap;
 }
 
 .badge-a { background: #dcfce7; color: #166534; }
@@ -272,21 +338,23 @@ input.error {
 
 .grade-cell {
   text-align: center;
-  font-size: 12px;
+  font-size: clamp(11px, 1.8vw, 12px);
   color: var(--gray-400);
 }
 
 .gp-cell {
-  font-size: 13px;
+  font-size: clamp(11px, 2.2vw, 13px);
   font-weight: 600;
   color: var(--blue);
   text-align: center;
 }
 
-/* ----- Buttons ----- */
+/* =============================================
+   BUTTONS
+   ============================================= */
 .btn-icon {
-  width: 30px;
-  height: 30px;
+  width: 28px;
+  height: 28px;
   border: none;
   border-radius: 8px;
   cursor: pointer;
@@ -294,7 +362,7 @@ input.error {
   align-items: center;
   justify-content: center;
   transition: all 0.15s ease;
-  font-size: 13px;
+  font-size: 12px;
   flex-shrink: 0;
 }
 
@@ -311,11 +379,10 @@ input.error {
 .btn-add {
   background: var(--blue-light);
   color: var(--blue);
-  width: auto;
   height: 34px;
-  padding: 0 14px;
-  gap: 5px;
-  font-size: 13px;
+  padding: 0 12px;
+  gap: 4px;
+  font-size: clamp(12px, 2.5vw, 13px);
   font-weight: 500;
   font-family: var(--font-body);
   border: none;
@@ -324,6 +391,7 @@ input.error {
   display: inline-flex;
   align-items: center;
   transition: all 0.15s ease;
+  white-space: nowrap;
 }
 
 .btn-add:hover {
@@ -336,15 +404,16 @@ input.error {
   color: #fff;
   border: none;
   border-radius: var(--radius);
-  padding: 9px 18px;
+  padding: 8px clamp(12px, 3vw, 18px);
   font-family: var(--font-body);
-  font-size: 14px;
+  font-size: clamp(12px, 2.5vw, 14px);
   font-weight: 500;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: 5px;
   transition: all 0.15s ease;
+  white-space: nowrap;
 }
 
 .btn-primary:hover {
@@ -357,12 +426,13 @@ input.error {
   color: var(--gray-600);
   border: 1px solid var(--gray-200);
   border-radius: var(--radius);
-  padding: 9px 16px;
+  padding: 8px clamp(10px, 2.5vw, 16px);
   font-family: var(--font-body);
-  font-size: 14px;
+  font-size: clamp(12px, 2.5vw, 14px);
   font-weight: 500;
   cursor: pointer;
   transition: all 0.15s ease;
+  white-space: nowrap;
 }
 
 .btn-secondary:hover {
@@ -375,12 +445,14 @@ input.error {
   color: var(--red);
   border: 1px solid #fca5a5;
   border-radius: var(--radius);
-  padding: 7px 14px;
+  padding: 6px 12px;
   font-family: var(--font-body);
-  font-size: 13px;
+  font-size: clamp(12px, 2.5vw, 13px);
   font-weight: 500;
   cursor: pointer;
   transition: all 0.15s ease;
+  flex-shrink: 0;
+  white-space: nowrap;
 }
 
 .btn-danger:hover {
@@ -389,7 +461,9 @@ input.error {
   border-color: var(--red);
 }
 
-/* ----- Action Row ----- */
+/* =============================================
+   ACTION ROW
+   ============================================= */
 .action-row {
   display: flex;
   gap: 8px;
@@ -398,28 +472,31 @@ input.error {
   flex-wrap: wrap;
 }
 
-/* ----- Result & Error boxes ----- */
+/* =============================================
+   RESULT & ERROR BOXES
+   ============================================= */
 .gpa-result {
   display: flex;
   align-items: center;
-  gap: 10px;
+  flex-wrap: wrap;
+  gap: 8px;
   background: var(--blue-light);
   border: 1px solid #bfdbfe;
   border-radius: var(--radius);
-  padding: 10px 16px;
+  padding: 10px 14px;
   margin-top: 14px;
   animation: fadeIn 0.25s ease;
 }
 
 .gpa-result .lbl {
-  font-size: 13px;
+  font-size: clamp(12px, 2.5vw, 13px);
   color: #1e40af;
   font-weight: 500;
 }
 
 .gpa-result .val {
   font-family: var(--font-display);
-  font-size: 22px;
+  font-size: clamp(18px, 4.5vw, 22px);
   font-weight: 700;
   color: var(--blue);
   margin-left: auto;
@@ -431,32 +508,35 @@ input.error {
   border-radius: var(--radius);
   padding: 10px 14px;
   margin-top: 12px;
-  font-size: 13px;
+  font-size: clamp(12px, 2.5vw, 13px);
   color: var(--red);
   animation: fadeIn 0.2s ease;
+  word-break: break-word;
 }
 
-/* ----- CGPA Panel ----- */
+/* =============================================
+   CGPA PANEL
+   ============================================= */
 .cgpa-panel {
   background: #fff;
   border-radius: var(--radius-lg);
   border: 1px solid var(--gray-200);
   box-shadow: var(--shadow);
-  padding: 1.5rem;
+  padding: clamp(1rem, 3vw, 1.5rem);
 }
 
 .cgpa-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  gap: 12px;
-  margin-bottom: 1.75rem;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 10px;
+  margin-bottom: 1.5rem;
 }
 
 .metric-card {
   background: var(--gray-50);
   border: 1px solid var(--gray-200);
   border-radius: var(--radius);
-  padding: 1rem;
+  padding: clamp(0.7rem, 2vw, 1rem);
   text-align: center;
 }
 
@@ -466,17 +546,17 @@ input.error {
 }
 
 .metric-card .m-lbl {
-  font-size: 11px;
+  font-size: clamp(9px, 2vw, 11px);
   font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.6px;
+  letter-spacing: 0.5px;
   color: var(--gray-400);
   margin-bottom: 6px;
 }
 
 .metric-card .m-val {
   font-family: var(--font-display);
-  font-size: 28px;
+  font-size: clamp(20px, 5vw, 28px);
   font-weight: 700;
   color: var(--gray-800);
 }
@@ -485,10 +565,12 @@ input.error {
   color: var(--blue);
 }
 
-/* ----- Semester breakdown rows ----- */
+/* =============================================
+   SEMESTER BREAKDOWN ROWS
+   ============================================= */
 .section-title {
   font-family: var(--font-display);
-  font-size: 15px;
+  font-size: clamp(13px, 3vw, 15px);
   font-weight: 600;
   color: var(--gray-800);
   margin-bottom: 12px;
@@ -497,9 +579,10 @@ input.error {
 .sem-row {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
   padding: 10px 0;
   border-bottom: 1px solid var(--gray-100);
+  flex-wrap: wrap;
 }
 
 .sem-row:last-child {
@@ -508,25 +591,24 @@ input.error {
 
 .sem-row .s-name {
   flex: 1;
-  font-size: 14px;
+  font-size: clamp(13px, 2.5vw, 14px);
   font-weight: 500;
   color: var(--gray-800);
+  min-width: 90px;
 }
 
 .sem-row .s-credits {
-  font-size: 12px;
+  font-size: clamp(11px, 2vw, 12px);
   color: var(--gray-400);
-  min-width: 72px;
-  text-align: right;
+  white-space: nowrap;
 }
 
 .sem-row .s-gpa {
   font-family: var(--font-display);
-  font-size: 16px;
+  font-size: clamp(14px, 3vw, 16px);
   font-weight: 600;
   color: var(--blue);
-  min-width: 50px;
-  text-align: right;
+  white-space: nowrap;
 }
 
 .progress-bar {
@@ -535,7 +617,7 @@ input.error {
   border-radius: 3px;
   overflow: hidden;
   margin-top: 5px;
-  max-width: 300px;
+  width: 100%; /* was fixed 300px — now fully fluid */
 }
 
 .progress-fill {
@@ -544,23 +626,28 @@ input.error {
   transition: width 0.45s ease;
 }
 
-/* ----- Empty state ----- */
+/* =============================================
+   EMPTY STATE
+   ============================================= */
 .empty-state {
   text-align: center;
-  padding: 2.5rem 1rem;
+  padding: clamp(1.5rem, 5vw, 2.5rem) 1rem;
   color: var(--gray-400);
-  font-size: 14px;
+  font-size: clamp(13px, 2.5vw, 14px);
   line-height: 1.6;
 }
 
-/* ----- Footer ----- */
+/* =============================================
+   FOOTER
+   ============================================= */
 footer {
   background: linear-gradient(135deg, #1e3c72 0%, #2563eb 100%);
   color: rgba(255,255,255,0.75);
   text-align: center;
-  padding: 1.25rem 1rem;
-  font-size: 13px;
+  padding: 1.1rem clamp(0.75rem, 3vw, 1rem);
+  font-size: clamp(11px, 2.5vw, 13px);
   border-top: 3px solid #3b82f6;
+  word-break: break-word;
 }
 
 footer a {
@@ -574,33 +661,161 @@ footer a:hover {
   color: #fde68a;
 }
 
-/* ----- Responsive ----- */
-@media (max-width: 640px) {
-  header {
-    padding: 1rem;
-    gap: 0.75rem;
-  }
+/* =============================================
+   RESPONSIVE BREAKPOINTS
+   ============================================= */
 
-  .header-titles h1 {
-    font-size: 18px;
-  }
-
+/* ---- Tablet: 481px – 767px ---- */
+@media (max-width: 767px) and (min-width: 481px) {
   .course-row {
-    grid-template-columns: 1fr 60px 70px 60px 55px 30px;
+    grid-template-columns:
+      minmax(90px, 2fr)  /* Subject */
+      minmax(50px, 70px) /* Credits */
+      minmax(60px, 80px) /* Marks   */
+      minmax(50px, 68px) /* Grade   */
+      minmax(44px, 60px) /* GP      */
+      28px;              /* Delete  */
     gap: 5px;
-  }
-
-  input[type="text"],
-  input[type="number"] {
-    font-size: 12px;
-    padding: 0 6px;
   }
 
   .cgpa-grid {
     grid-template-columns: repeat(2, 1fr);
   }
+}
+
+/* ---- Mobile: ≤ 480px ---- */
+@media (max-width: 480px) {
+
+  /* ---- Card body: tighten padding ---- */
+  .card-body {
+    padding: 0.6rem 0.5rem;
+  }
+
+  /* ---- Hide desktop header row on mobile ---- */
+  .course-row.header-row {
+    display: none;
+  }
+
+  /*
+   * MOBILE COURSE ROW — stacked card layout
+   *
+   * Layout:
+   *   Row 1:  [Subject name input ............] [🗑 Delete]
+   *   Row 2:  [Credits] [Marks%] [Grade] [GP]
+   *
+   * Uses grid-template-areas for clarity and correctness.
+   */
+  .course-row:not(.header-row) {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 28px;
+    grid-template-rows: auto auto;
+    grid-template-areas:
+      "subj  subj  subj  subj  del"
+      "cred  marks grade gp    gp ";
+    gap: 5px;
+    background: var(--gray-50);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius);
+    padding: 0.5rem;
+    margin-bottom: 8px;
+  }
+
+  /* Subject input — row 1, spans cols 1-4 */
+  .course-row:not(.header-row) > input[type="text"] {
+    grid-area: subj;
+    text-align: left;
+  }
+
+  /* Credits input — row 2, col 1 */
+  .course-row:not(.header-row) > input[type="number"]:nth-of-type(1) {
+    grid-area: cred;
+  }
+
+  /* Marks input — row 2, col 2 */
+  .course-row:not(.header-row) > input[type="number"]:nth-of-type(2) {
+    grid-area: marks;
+  }
+
+  /* Grade badge cell — row 2, col 3 */
+  .course-row:not(.header-row) > .grade-cell {
+    grid-area: grade;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* GP cell — row 2, col 4 (and also last col via template) */
+  .course-row:not(.header-row) > .gp-cell {
+    grid-area: gp;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Delete button — row 1, col 5 */
+  .course-row:not(.header-row) > .btn-icon {
+    grid-area: del;
+    align-self: start;
+    margin-top: 3px;
+  }
+
+  /* Inputs inside mobile rows: smaller height */
+  .course-row:not(.header-row) input {
+    height: 30px;
+    font-size: 12px;
+    padding: 0 4px;
+  }
+
+  /* CGPA grid: 2 columns on mobile */
+  .cgpa-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* Action row buttons: allow wrapping, smaller padding */
+  .action-row {
+    gap: 6px;
+  }
+
+  .action-row .btn-primary,
+  .action-row .btn-secondary,
+  .action-row .btn-add {
+    padding-left: 10px;
+    padding-right: 10px;
+    font-size: 12px;
+  }
+}
+
+/* ---- Very small mobile: ≤ 360px ---- */
+@media (max-width: 360px) {
+
+  .action-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .action-row > button {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .tab-btn {
+    font-size: 11px;
+    padding: 7px 4px;
+  }
+
+  .header-titles h1 {
+    font-size: 13px;
+  }
+
+  .header-titles p {
+    display: none; /* hide subtitle on tiny screens */
+  }
+
+  .cgpa-grid {
+    grid-template-columns: 1fr 1fr;
+  }
 
   .metric-card .m-val {
-    font-size: 22px;
+    font-size: 20px;
   }
 }
