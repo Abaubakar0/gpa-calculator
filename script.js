@@ -5,12 +5,12 @@
 // ----- Grade Scale -----
 const GRADE_MAP = [
   { min: 91, grade: 'A+', gp: 4.0 },
-  { min: 87, grade: 'A',  gp: 4.0 },
+  { min: 87, grade: 'A', gp: 4.0 },
   { min: 80, grade: 'B+', gp: 3.5 },
-  { min: 72, grade: 'B',  gp: 3.0 },
+  { min: 72, grade: 'B', gp: 3.0 },
   { min: 66, grade: 'C+', gp: 2.5 },
-  { min: 60, grade: 'C',  gp: 2.0 },
-  { min: 0,  grade: 'F',  gp: 0.0 }
+  { min: 60, grade: 'C', gp: 2.0 },
+  { min: 0, grade: 'F', gp: 0.0 }
 ];
 
 // Returns grade object {min, grade, gp} for a given percentage marks
@@ -38,8 +38,8 @@ function gpaColor(gpa) {
 }
 
 // ----- State -----
-let semesterCount  = 0;
-let semesters      = {};    // { semId: { name, gpa, credits, calculated } }
+let semesterCount = 0;
+let semesters = {};    // { semId: { name, gpa, credits, calculated } }
 let courseCounters = {};    // { semId: number } — monotonically increasing row counter
 
 // ----- Semester Management -----
@@ -112,8 +112,8 @@ function resetSemester(id) {
   const coursesDiv = document.getElementById('courses_' + id);
   if (coursesDiv) coursesDiv.innerHTML = '';
   courseCounters[id] = 0;
-  semesters[id].gpa        = null;
-  semesters[id].credits    = 0;
+  semesters[id].gpa = null;
+  semesters[id].credits = 0;
   semesters[id].calculated = false;
   document.getElementById('result_' + id).innerHTML = '';
   addCourseRow(id);
@@ -151,44 +151,44 @@ function removeCourse(cid) {
 function liveGrade(cid) {
   const marksEl = document.getElementById('marks_' + cid);
   const gradeEl = document.getElementById('grade_' + cid);
-  const gpEl    = document.getElementById('gp_'    + cid);
-  const marks   = parseFloat(marksEl.value);
+  const gpEl = document.getElementById('gp_' + cid);
+  const marks = parseFloat(marksEl.value);
 
   if (isNaN(marks) || marks < 0 || marks > 100) {
-    gradeEl.innerHTML  = '—';
-    gpEl.textContent   = '—';
+    gradeEl.innerHTML = '—';
+    gpEl.textContent = '—';
     return;
   }
 
   const g = getGradeInfo(marks);
   gradeEl.innerHTML = `<span class="badge ${gradeBadgeClass(g.grade)}">${g.grade}</span>`;
-  gpEl.textContent  = g.gp.toFixed(1);
+  gpEl.textContent = g.gp.toFixed(1);
 }
 
 // ----- GPA Calculation -----
 
 function calcSemGPA(semId) {
   const coursesDiv = document.getElementById('courses_' + semId);
-  const rows       = coursesDiv.querySelectorAll('.course-row');
-  const resultDiv  = document.getElementById('result_' + semId);
-  const errors     = [];
-  let totalPts     = 0;
-  let totalCreds   = 0;
+  const rows = coursesDiv.querySelectorAll('.course-row');
+  const resultDiv = document.getElementById('result_' + semId);
+  const errors = [];
+  let totalPts = 0;
+  let totalCreds = 0;
 
   rows.forEach((row, i) => {
-    const credEl  = row.querySelector('[id^="cred_"]');
+    const credEl = row.querySelector('[id^="cred_"]');
     const marksEl = row.querySelector('[id^="marks_"]');
     const gradeEl = row.querySelector('[id^="grade_"]');
-    const gpEl    = row.querySelector('[id^="gp_"]');
+    const gpEl = row.querySelector('[id^="gp_"]');
     if (!credEl || !marksEl) return;
 
     // Clear previous error styling
     credEl.classList.remove('error');
     marksEl.classList.remove('error');
 
-    const cred  = parseFloat(credEl.value);
+    const cred = parseFloat(credEl.value);
     const marks = parseFloat(marksEl.value);
-    let rowErr  = false;
+    let rowErr = false;
 
     // Validate credit hours
     if (isNaN(cred) || cred < 1 || cred > 3) {
@@ -209,15 +209,15 @@ function calcSemGPA(semId) {
     // Assign grade and accumulate totals
     const g = getGradeInfo(marks);
     gradeEl.innerHTML = `<span class="badge ${gradeBadgeClass(g.grade)}">${g.grade}</span>`;
-    gpEl.textContent  = g.gp.toFixed(1);
-    totalPts   += g.gp * cred;
+    gpEl.textContent = g.gp.toFixed(1);
+    totalPts += g.gp * cred;
     totalCreds += cred;
   });
 
   if (errors.length) {
     const preview = errors.slice(0, 2).join('; ') + (errors.length > 2 ? ` (+${errors.length - 2} more)` : '');
     resultDiv.innerHTML = `<div class="error-box">⚠ ${preview}</div>`;
-    semesters[semId].gpa        = null;
+    semesters[semId].gpa = null;
     semesters[semId].calculated = false;
     updateCGPA();
     return;
@@ -228,12 +228,12 @@ function calcSemGPA(semId) {
     return;
   }
 
-  const gpa    = totalPts / totalCreds;
+  const gpa = totalPts / totalCreds;
   const gpaStr = gpa.toFixed(2);
-  const g      = getGradeInfo(gpa * 25); // scale 0–4 GPA to 0–100 for grade lookup
+  const g = getGradeInfo(gpa * 25); // scale 0–4 GPA to 0–100 for grade lookup
 
-  semesters[semId].gpa        = gpa;
-  semesters[semId].credits    = totalCreds;
+  semesters[semId].gpa = gpa;
+  semesters[semId].credits = totalCreds;
   semesters[semId].calculated = true;
 
   resultDiv.innerHTML = `
@@ -254,34 +254,34 @@ function updateCGPA() {
   document.getElementById('sem-count-val').textContent = Object.keys(semesters).length;
 
   if (!calculated.length) {
-    document.getElementById('cgpa-val').textContent          = '—';
+    document.getElementById('cgpa-val').textContent = '—';
     document.getElementById('total-credits-val').textContent = '0';
-    document.getElementById('overall-grade-val').innerHTML   = '—';
+    document.getElementById('overall-grade-val').innerHTML = '—';
     document.getElementById('cgpa-breakdown').innerHTML =
       '<div class="empty-state">No semester GPA calculated yet.<br>Go to the Semester GPA tab and calculate each semester.</div>';
     return;
   }
 
-  let totalPts   = 0;
+  let totalPts = 0;
   let totalCreds = 0;
   calculated.forEach(([, s]) => {
-    totalPts   += s.gpa * s.credits;
+    totalPts += s.gpa * s.credits;
     totalCreds += s.credits;
   });
 
   const cgpa = totalPts / totalCreds;
-  const g    = getGradeInfo(cgpa * 25);
+  const g = getGradeInfo(cgpa * 25);
 
-  document.getElementById('cgpa-val').textContent          = cgpa.toFixed(2);
+  document.getElementById('cgpa-val').textContent = cgpa.toFixed(2);
   document.getElementById('total-credits-val').textContent = totalCreds;
   document.getElementById('overall-grade-val').innerHTML =
     `<span class="badge ${gradeBadgeClass(g.grade)}" style="font-size:18px;padding:4px 12px">${g.grade}</span>`;
 
   // Build semester breakdown rows
   const html = calculated.map(([id, s]) => {
-    const pct  = (s.gpa / 4.0) * 100;
+    const pct = (s.gpa / 4.0) * 100;
     const color = gpaColor(s.gpa);
-    const sg   = getGradeInfo(s.gpa * 25);
+    const sg = getGradeInfo(s.gpa * 25);
     return `
       <div class="sem-row">
         <div style="flex:1">
@@ -304,7 +304,7 @@ function updateCGPA() {
 
 function switchTab(tab) {
   document.querySelectorAll('.tab-btn').forEach((btn, i) => {
-    btn.classList.toggle('active', ['gpa', 'cgpa'][i] === tab);
+    btn.classList.toggle('active', ['gpa', 'cgpa', 'quick-cgpa'][i] === tab);
   });
   document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
   document.getElementById('tab-' + tab).classList.add('active');
@@ -313,3 +313,101 @@ function switchTab(tab) {
 
 // ----- Init -----
 addSemester();
+
+// =========================================
+//   QUICK CGPA CALCULATOR
+// =========================================
+let quickSemCount = 0;
+
+function addQuickSemester() {
+  quickSemCount++;
+  const container = document.getElementById('quick-semesters-container');
+  
+  const div = document.createElement('div');
+  div.className = 'quick-sem-row';
+  div.id = 'quick_sem_' + quickSemCount;
+  
+  div.innerHTML = `
+    <span class="quick-sem-label">Semester ${quickSemCount}</span>
+    <input type="number" id="quick_gpa_${quickSemCount}" step="0.01" min="0" max="4.0" placeholder="Enter GPA (e.g. 3.5)">
+    <button class="btn-icon btn-del" onclick="removeQuickSemester(${quickSemCount})" title="Remove semester">✕</button>
+  `;
+  
+  container.appendChild(div);
+}
+
+function removeQuickSemester(id) {
+  const row = document.getElementById('quick_sem_' + id);
+  if (row) {
+    row.remove();
+  }
+}
+
+function calculateQuickCGPA() {
+  const container = document.getElementById('quick-semesters-container');
+  const rows = container.querySelectorAll('.quick-sem-row');
+  const resultDiv = document.getElementById('quick-cgpa-result');
+  
+  if (rows.length === 0) {
+    resultDiv.innerHTML = '<div class="error-box">⚠ Please add at least one semester.</div>';
+    return;
+  }
+  
+  let totalGPA = 0;
+  let validSemesters = 0;
+  let errors = [];
+  
+  rows.forEach((row, i) => {
+    const inputEl = row.querySelector('input[type="number"]');
+    inputEl.classList.remove('error');
+    
+    // Allow empty input to be skipped or throw an error?
+    // Let's require it to be filled for accuracy
+    if (inputEl.value.trim() === '') {
+      inputEl.classList.add('error');
+      errors.push(`Row ${i + 1}: Please enter a GPA`);
+      return;
+    }
+    
+    const gpa = parseFloat(inputEl.value);
+    
+    if (isNaN(gpa) || gpa < 0 || gpa > 4.0) {
+      inputEl.classList.add('error');
+      errors.push(`Row ${i + 1}: GPA must be between 0.0 and 4.0`);
+    } else {
+      totalGPA += gpa;
+      validSemesters++;
+    }
+  });
+  
+  if (errors.length > 0) {
+    const preview = errors.slice(0, 2).join('; ') + (errors.length > 2 ? ` (+${errors.length - 2} more)` : '');
+    resultDiv.innerHTML = `<div class="error-box">⚠ ${preview}</div>`;
+    return;
+  }
+  
+  if (validSemesters === 0) return;
+  
+  const cgpa = totalGPA / validSemesters;
+  const gradeInfo = getGradeInfo(cgpa * 25); // Scale 0-4 to 0-100 for existing grade lookup
+  
+  resultDiv.innerHTML = `
+    <div class="gpa-result">
+      <span class="lbl">Overall CGPA</span>
+      <span class="badge ${gradeBadgeClass(gradeInfo.grade)}" style="font-size:13px">${gradeInfo.grade}</span>
+      <span class="val">${cgpa.toFixed(2)}</span>
+    </div>
+  `;
+}
+
+function resetQuickCGPA() {
+  document.getElementById('quick-semesters-container').innerHTML = '';
+  document.getElementById('quick-cgpa-result').innerHTML = '';
+  quickSemCount = 0;
+  // Initialize with 2 empty semesters by default
+  addQuickSemester();
+  addQuickSemester();
+}
+
+// Init quick cgpa
+resetQuickCGPA();
